@@ -236,7 +236,7 @@ input[type=file]{position:absolute;opacity:0;width:1px;height:1px}
 <div class="ov" id="ov" hidden><div><div class="trofeu"><div class="bola"></div><div class="base"></div></div><h3 id="ovt">Voto registrado.</h3><p id="ovp">Valeu. Agora é esperar a revelação.</p><button class="btn" id="ovb">Voltar pras categorias</button></div></div>
 <script>
 {
-const DATA_PREMIACAO = new Date('2026-12-10T20:00:00-03:00'); // muda depois
+const DATA_PREMIACAO = new Date('2026-12-31T20:00:00-03:00'); // muda depois
 const SENHA = 'cc2026'; // só no protótipo
 const NOMES = ['Rafael Estrela','Lipe','Lukkas','Mitsu','Denzel'];
 const CORES = ['#c30d17','#e01e25','#1f7ae0','#f4a23a','#555'];
@@ -340,7 +340,7 @@ function contagem() {
 
 const V = {
   inicio() {
-    return '<section class="hero"><div class="palco"><img class="mascote" src="' + TROFEU + '" alt=""><h1>Caio Carregado <span>Awards 2026</span></h1></div><p>Revelação dia 10 de dezembro</p><div id="cont">' + contagem() + '</div>' + botaoVotar() + '</section><div class="listras"></div>' +
+    return '<section class="hero"><div class="palco"><img class="mascote" src="' + TROFEU + '" alt=""><h1>Caio Carregado <span>Awards 2026</span></h1></div><p>Revelação dia 31 de dezembro</p><div id="cont">' + contagem() + '</div>' + botaoVotar() + '</section><div class="listras"></div>' +
       '<h2>Os indicados</h2><div class="cats">' + S.cats.map(c => {
         const sel = c.nova ? '<span class="selo nova">Nova</span>' : c.tipo === 'prints' ? '<span class="selo">Com print</span>' : '';
         if (c.tipo === 'nomes') return '<div class="cat" data-abre="' + c.id + '">' + sel + '<button class="cab" aria-expanded="false" aria-controls="ind-' + c.id + '">' + nomeDeco(c) + '<span class="seta">Ver indicados</span></button><div class="indicados' + (c.id === 'membro' ? ' poster' : '') + '" id="ind-' + c.id + '" hidden>' + (c.id === 'membro' ? '<img src="' + POSTER + '" alt="Os 5 membros do grupo">' : opcoes(c).map(o => '<figure><img src="' + o.foto + '" alt=""><figcaption>' + esc(o.nome) + '</figcaption></figure>').join('')) + '</div></div>';
@@ -382,7 +382,7 @@ const V = {
       '<div class="bloco"><h3>Nova categoria</h3><form class="form" id="fcat" style="margin:0"><label>Nome<input type="text" id="cnome" maxlength="30" required></label><label>Frase<input type="text" id="csub" maxlength="60"></label><label>Tipo<select id="ctipo"><option value="nomes">Votar em nomes</option><option value="prints">Votar em prints ou vídeos</option><option value="texto">Votar em opções escritas</option></select></label><button class="btn sec">Criar categoria</button></form><p class="aviso">Categoria criada aqui entra sem enfeite. O enfeite eu desenho no código.</p></div>';
   },
   resultados() {
-    if (!S.liberado) return '<section class="trancado">' + trofeu + '<h3>Resultado trancado</h3><p>A revelação é dia 10 de dezembro.</p><div style="display:flex;justify-content:center" id="cont">' + contagem() + '</div></section>';
+    if (!S.liberado) return '<section class="trancado">' + trofeu + '<h3>Resultado trancado</h3><p>A revelação é dia 31 de dezembro.</p><div style="display:flex;justify-content:center" id="cont">' + contagem() + '</div></section>';
     return S.cats.map(c => {
       const v = S.votos[c.id] || {};
       const top = opcoes(c).map(o => ({...o, n:v[o.id] || 0})).sort((a, b) => b.n - a.n).slice(0, 5);
@@ -427,7 +427,7 @@ app.addEventListener('click', e => {
     // bloqueio silencioso: se este aparelho já votou, não conta, mas a mensagem é a mesma
     if (!S.jaVotou) { for (const [cat, op] of Object.entries(W.escolhas)) S.votos[cat][op] = (S.votos[cat][op] || 0) + 1; S.jaVotou = true; }
     W.i = 0; W.escolhas = {};
-    aviso('Votos registrados.', 'Valeu. Agora é esperar a revelação dia 10 de dezembro.', 'inicio'); return;
+    aviso('Votos registrados.', 'Valeu. Agora é esperar a revelação dia 31 de dezembro.', 'inicio'); return;
   }
   const ap = e.target.closest('[data-ap],[data-rc]');
   if (ap) { const p = S.prints.find(x => x.id === (ap.dataset.ap || ap.dataset.rc)); if (ap.dataset.ap) { p.status = 'ok'; S.votos[p.cat][p.id] = 0; } else p.status = 'rec'; render(); return; }
